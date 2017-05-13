@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"  
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+		<title>SLEAM-BOOK | ESPRIT</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		
+	</h:head>
+	<h:body>
+		<ui:composition template="/templates/sBAChartTemplate.xhtml"
+						xmlns:p="http://primefaces.org/ui">
+			<ui:define name="content">
+				<f:view encoding="UTF-8" contentType="text/html">
+					<script>
+					    $(function() {
+					
+					        var data = [{
+					            label: "Series 0",
+					            data: #{missionBean.newMission}
+					        }, {
+					            label: "Series 1",
+					            data: #{missionBean.enCoursMission}
+					        }, {
+					            label: "Series 2",
+					            data: #{missionBean.termineeMission}
+					        }, {
+					            label: "Series 3",
+					            data: #{missionBean.attenteMission}
+					        }];
+					
+					
+					        
+					        var plotObj = $.plot($("#flot-pie-chart"), data, {
+					            series: {
+					                pie: {
+					                    show: true,
+					                    allowPointSelect: true,
+						                cursor: 'pointer',
+						                dataLabels: {
+						                    enabled: false
+						                },
+						                showInLegend: true
+					                }
+					            },
+					            grid: {
+					                hoverable: true
+					            },
+					            tooltip: true,
+					            tooltipOpts: {
+					                content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+					                shifts: {
+					                    x: 20,
+					                    y: 0
+					                },
+					                defaultTheme: false
+					            }
+					        });
+					
+					    });
+					    </script>
+					
+					<br/><br/>
+					
+					<div class="row">
+                		<div class="col-lg-12">
+                    		<div class="panel panel-default">
+                        		<div class="panel-heading">
+                            		Mission by status diagram
+                        		</div>
+					
+								<div class="panel-body">
+                    				<div class="flot-chart">
+                    					<div class="flot-chart-content" id="flot-pie-chart"></div>
+                    				</div>
+                    			</div>
+							</div>
+						</div>
+					</div>
+					
+				</f:view>
+			</ui:define>
+		</ui:composition>
+	</h:body>
+</html>

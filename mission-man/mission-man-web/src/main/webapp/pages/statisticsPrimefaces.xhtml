@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html">
+
+	<h:head>
+		<title>SLEAM-BOOK | ESPRIT</title>
+	</h:head>
+	<h:body>
+		<ui:composition template="/templates/primeChartTemplate.xhtml"
+			xmlns:p="http://primefaces.org/ui">
+			<ui:define name="content">
+				<f:view encoding="UTF-8" contentType="text/html">
+					<h:form>
+						<br/><br/><br/>
+						<center>
+							<p:chart type="pie" model="#{chartView.pieModel1}" style="width:400px;height:300px" />
+						</center>
+					</h:form>
+				</f:view>
+			</ui:define>
+		</ui:composition>
+	</h:body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<title>SLEAM-BOOK | ESPRIT</title>
+	<link type="text/css" rel="stylesheet" href="/project/faces/javax.faces.resource/theme.css?ln=primefaces-glass-x" />
+</h:head>
+<h:body>
+	<ui:composition template="/templates/homeTemplate.xhtml"
+		xmlns:p="http://primefaces.org/ui">
+		<ui:define name="content">
+			<f:view encoding="UTF-8" contentType="text/html">
+			
+			<h:form id="lolitjta">
+<br/><br/><br/>
+	
+					
+					 <p:inputText id="firstname" value="#{missionBean.mission.site}">
+		             	<p:ajax event="keyup" update="out1" />
+		             </p:inputText>
+		             <p:spacer width="10px"/>
+		        	 <h:outputText id="out1" value="#{missionBean.verifySite(missionBean.mission.site)}" style=";color:#ff0000"/>
+		        	 <br/><br/>
+		        	 <p:inputText id="logino" value="#{missionBean.mission.site}" validator="#{missionBean.validateLoginUnicity}" required="true" requiredMessage="login is required">
+							<f:ajax event="blur" execute="@this" render="msg_logino" />
+						</p:inputText>
+						<p:spacer width="10px"/>
+						<h:message id="msg_logino" for="logino" style=";color:#ff0000"/>
+</h:form>
+			
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

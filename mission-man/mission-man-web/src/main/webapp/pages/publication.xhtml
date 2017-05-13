@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>SLEAM-BOOK | ESPRIT</title>
+	<h:outputScript library="primefaces" name="jquery/jquery.js"
+		target="head" />
+	<h:outputScript library="primefaces" name="jquery/jquery-plugins.js"
+		target="head" />
+</h:head>
+<h:body>
+	<ui:composition template="/templates/homeTemplate.xhtml"
+		xmlns:p="http://primefaces.org/ui">
+		<ui:define name="content">
+			<f:view encoding="UTF-8" contentType="text/html">
+				<style>
+.outputTooltip {
+	color: #2F3030;
+	font-family: Arial;
+	font-size: 10px;
+	font-weight: bold;
+}
+</style>
+
+				<h:form id="form">
+					<h:outputText value="Add a Publication" style="font-weight:bold;"
+						styleClass="text-primary" />
+					<br />
+					<br />
+					<p:inputTextarea value="#{userBean.publicationContent}"
+						id="keyword" class="form-control" style="font-size: 13px"
+						autoResize="false" />
+					<p:watermark for="keyword" value="What do you think ?." />
+					<br />
+					<br />
+					<p:commandLink id="post"
+						actionListener="#{userBean.createPublication(userBean.connectedUser.id)}"
+						ajax="true" action="publication?faces-redirect=true">
+						<p:graphicImage value="/resources/icons/send.ico"
+							style="width : 27px; height:27px" />
+					</p:commandLink>
+					<p:tooltip id="toolTipPost" for="post" value="Post"
+						showEffect="clip" hideEffect="fade" position="top"
+						styleClass="outputTooltip" />
+					<br />
+					<br />
+					<hr />
+					<h:outputText value="List of Publications"
+						style="font-weight:bold;" styleClass="text-primary" />
+					<br />
+					<br />
+					<p:dataTable id="table" var="pub" value="#{userBean.lps}" rows="10"
+						paginator="true" style="font-size: 13px"
+						rowsPerPageTemplate="5,10,15" paginatorPosition="bottom"
+						widgetVar="carsTable"
+						emptyMessage="No publication(s) found with given criteria !."
+						filteredValue="#{userBean.filteredPublications}"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+						<f:facet name="header">
+							<p:outputPanel>
+								<p:spacer width="754" height="-2" />
+								<h:outputText value="Search all fields:" />
+								<p:spacer width="5" />
+								<p:inputText id="globalFilter"
+									onkeyup="PF('carsTable').filter()" style="width:150px"
+									placeholder="Enter keyword" />
+							</p:outputPanel>
+						</f:facet>
+
+						<p:column filterBy="FB.#{userBean.connectedUser.id}-PUB.#{pub.id}"
+							headerText="Reference" filterMatchMode="contains"
+							style="width: 120px;" update="@all">
+							<h:outputText
+								value="FB.#{userBean.connectedUser.id}-PUB.#{pub.id}" />
+						</p:column>
+
+						<p:column filterBy="#{pub.title}" headerText="Thought"
+							filterMatchMode="contains">
+							<h:outputText value="#{pub.title}" />
+						</p:column>
+						<p:column headerText="Operations" style="width: 200px;">
+							<center>
+								<p:commandLink id="consult" title="View"
+									update="@([id$=consulting])"
+									oncomplete="PF('consultDialog').show()">
+									<f:setPropertyActionListener value="#{pub}"
+										target="#{userBean.selectedPublication}" />
+									<p:graphicImage value="/resources/icons/consult.ico"
+										style="width : 27px; height:27px" />
+								</p:commandLink>
+								<p:tooltip id="toolTipConsult" for="consult" value="Consult"
+									showEffect="clip" hideEffect="fade" position="top"
+									styleClass="outputTooltip" />
+								<p:spacer width="2px" />
+
+								<p:commandLink id="edit" title="View" update="@([id$=updating])"
+									oncomplete="PF('updateDialog').show()">
+									<f:setPropertyActionListener value="#{pub}"
+										target="#{userBean.selectedPublication}" />
+									<p:graphicImage value="/resources/icons/edit.ico"
+										style="width : 27px; height:27px" />
+								</p:commandLink>
+								<p:tooltip id="toolTipEdit" for="edit" value="Edit"
+									showEffect="clip" hideEffect="fade" position="top"
+									styleClass="outputTooltip" />
+								<p:spacer width="2px" />
+
+								<p:commandLink id="delete" title="View"
+									oncomplete="PF('deleteDialog').show()"
+									actionListener="#{userBean.deletePublication(userBean.connectedUser.id,pub.id)}">
+									<p:graphicImage value="/resources/icons/delete.ico"
+										style="width : 27px; height:27px" />
+								</p:commandLink>
+								<p:tooltip id="toolTipDelete" for="delete" value="Delete"
+									showEffect="clip" hideEffect="fade" position="top"
+									styleClass="outputTooltip" />
+								<p:spacer width="2px" />
+							</center>
+						</p:column>
+					</p:dataTable>
+
+					<p:dialog id="firstDialog" header="Update Publication"
+						widgetVar="updateDialog" modal="true" showEffect="fade"
+						hideEffect="fade" resizable="false">
+						<p:outputPanel id="updating" style="text-align:center;">
+							<table width="100%">
+								<tr>
+									<td>
+										<center>
+											<br />
+											<h:panelGrid columns="3">
+												<h:outputText value="Reference:"
+													style="color:#0000e6;font-size: 13px" />
+												<p:spacer width="7" />
+												<p:inputText
+													value="FB.#{userBean.connectedUser.id}-PUB.#{userBean.selectedPublication.id}"
+													style="font-size: 11px" disabled="true" />
+
+												<p:spacer width="7" />
+												<p:spacer width="7" />
+												<p:spacer width="7" />
+
+												<h:outputText value="Thought:"
+													style="color:#0000e6;font-size: 13px" />
+												<p:spacer width="7" />
+												<p:inputTextarea
+													value="#{userBean.selectedPublication.title}"
+													style="font-size: 11px" rows="5" cols="30"
+													autoResize="false">
+												</p:inputTextarea>
+											</h:panelGrid>
+											<br />
+											<hr />
+											<p:commandButton value="Update"
+												actionListener="#{userBean.updatePublication(userBean.selectedPublication.id)}"
+												style="width: 70px;height: 25px;font-size: 13px;background-color: #0066ff;color:#000000;border-color:#0066ff"
+												ajax="false" />
+											<br /> <br />
+										</center>
+									</td>
+								</tr>
+							</table>
+						</p:outputPanel>
+					</p:dialog>
+
+					<p:dialog id="secondDialog" header="Consult Publication"
+						widgetVar="consultDialog" modal="true" showEffect="fade"
+						hideEffect="fade" resizable="false" closable="false">
+						<p:outputPanel id="consulting" style="text-align:center;">
+							<table width="100%">
+								<tr>
+									<td>
+										<center>
+											<br />
+											<h:panelGrid columns="3">
+												<h:outputText value="Reference:"
+													style="color:#0000e6;font-size: 13px" />
+												<p:spacer width="7" />
+												<h:outputText
+													value="FB.#{userBean.connectedUser.id}-PUB.#{userBean.selectedPublication.id}"
+													style="font-size: 11px" />
+												<h:outputText value="Thought:"
+													style="color:#0000e6;font-size: 13px" />
+												<p:spacer width="7" />
+												<h:outputText value="#{userBean.selectedPublication.title}"
+													style="font-size: 11px" />
+											</h:panelGrid>
+
+											<hr />
+											<p:commandButton value="Ok"
+												actionListener="#{userBean.updateListPublications(userBean.connectedUser.id)}"
+												style="width: 50px;height: 25px;font-size: 13px;background-color: #0066ff;color:#000000;border-color:#0066ff"
+												ajax="false" action="publication?faces-redirect=true" />
+											<br /> <br />
+										</center>
+									</td>
+								</tr>
+							</table>
+						</p:outputPanel>
+					</p:dialog>
+
+					<p:dialog id="thirdDialog" header="Delete Publication"
+						widgetVar="deleteDialog" modal="true" showEffect="fade"
+						hideEffect="fade" resizable="false">
+						<center>
+							<br />
+							<h:outputText
+								value="Congratulations, this publication is being deleted ... !."
+								style="color:#000000;font-size: 13px" />
+							<br />
+							<hr />
+							<p:commandButton value="Ok" update="@all"
+								action="publication?faces-redirect=true"
+								style="width: 50px;height: 25px;font-size: 13px;background-color: #0066ff;color:#000000;border-color:#0066ff"
+								ajax="false" />
+							<br /> <br />
+						</center>
+					</p:dialog>
+
+					<br />
+					<br />
+					<br />
+					<br />
+				</h:form>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

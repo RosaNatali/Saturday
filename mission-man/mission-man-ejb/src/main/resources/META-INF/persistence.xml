@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="mission-man-ejb">
+		<jta-data-source>java:/myFirstDS</jta-data-source>
+		<class>persistence.Agency</class>
+		<class>persistence.Agent</class>
+		<class>persistence.Camion</class>
+		<class>persistence.Chauffeur</class>
+		<class>persistence.MChauffeurDetail</class>
+		<class>persistence.MChauffeurDetailId</class>
+		<class>persistence.MVehiculeDetail</class>
+		<class>persistence.MVehiculeDetailId</class>
+		<class>persistence.Mission</class>
+		<class>persistence.Produit</class>
+		<class>persistence.User</class>
+		<class>persistence.Vehicule</class>
+		<class>persistence.Voiture</class>
+		
+		
+		<properties>
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="hibernate.show_sql" value="true" />
+		</properties>
+	</persistence-unit>
+</persistence>

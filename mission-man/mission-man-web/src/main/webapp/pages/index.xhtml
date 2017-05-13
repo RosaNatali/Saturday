@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<title>SLEAM-BOOK | ESPRIT</title>
+	<link type="text/css" rel="stylesheet" href="/project/faces/javax.faces.resource/theme.css?ln=primefaces-glass-x" />
+</h:head>
+<h:body>
+	<ui:composition template="/templates/homeTemplate.xhtml"
+		xmlns:p="http://primefaces.org/ui">
+		<ui:define name="content">
+			<f:view encoding="UTF-8" contentType="text/html">
+				<br/><br/><br/>
+				<hr/>
+				<div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-suitcase fa-5x"></i>
+                                </div>
+                                
+                                    <br/><br/><br/><br/>
+                                    	 <h:panelGrid columns="2">
+	                                    	<h:column >
+	                                    		&nbsp;&nbsp;<h:outputText value="Suite: " style="font-size: 12px"/>
+	                                    	</h:column>
+	                                    	<h:column>
+	                                    		&nbsp;&nbsp;&nbsp;<h:outputText value="#{missionBean.sampleMissionb.etatMission}" style="font-size: 10px"/>
+	                                    	</h:column>
+	                                    	
+	                                    	<h:column>
+	                                    		&nbsp;&nbsp;<h:outputText value="Creation date: " style="font-size: 12px"/>
+	                                    	</h:column>
+	                                    	<h:column>
+	                                    		&nbsp;&nbsp;&nbsp;<h:outputText value="#{missionBean.sampleMission.dateCreation}" style="font-size: 10px"/>
+	                                    	</h:column>
+	                                    	
+	                                    	<h:column>
+	                                    		&nbsp;&nbsp;<h:outputText value="Affectation date: " style="font-size: 12px"/>
+	                                    	</h:column>
+	                                    	<h:column>
+	                                    		&nbsp;&nbsp;&nbsp;<h:outputText value="#{missionBean.sampleMission.dateAffectation}" style="font-size: 10px"/>
+	                                    	</h:column>
+	                                    	
+	                                    	<h:column>
+	                                    		&nbsp;&nbsp;<h:outputText value="Status: " style="font-size: 12px"/>
+	                                    	</h:column>
+	                                    	<h:column>
+	                                    		&nbsp;&nbsp;&nbsp;<h:outputText value="#{missionBean.sampleMission.etatMission}" style="font-size: 10px"/>
+	                                    	</h:column>
+	                                    	
+	                                    	<h:column>
+	                                    		&nbsp;&nbsp;<h:outputText value="Nb Vehicules: " style="font-size: 12px"/>
+	                                    	</h:column>
+	                                    	<h:column>
+	                                    		&nbsp;&nbsp;&nbsp;<h:outputText value="#{missionBean.sampleVehicules.size()}" style="font-size: 10px"/>
+	                                    	</h:column>
+	                                    	
+	                                    	<h:column>
+	                                    		&nbsp;&nbsp;<h:outputText value="Nb Chauffeurs: " style="font-size: 12px"/>
+	                                    	</h:column>
+	                                    	<h:column>
+	                                    		&nbsp;&nbsp;&nbsp;<h:outputText value="#{missionBean.sampleChauffeurs.size()}" style="font-size: 10px"/>
+	                                    	</h:column>
+	                                    </h:panelGrid>
+                                
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-car fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">#{missionBean.chauffeursByMission.size()+1}</div>
+                                    <div>Chauffeurs!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-group fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">#{missionBean.chauffeursByMission.size()+1}</div>
+                                    <div>Chauffeurs!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-shopping-cart fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">13</div>
+                                    <div>Support Tickets!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+			
+			<br/>
+			<p:tabMenu activeIndex="#{param.i}">
+			    <p:menuitem value="Overview" url="http://localhost:8080/mission-man-web/faces/pages/index.xhtml" icon="ui-icon-star">
+			        <f:param name="i" value="0" />
+			    </p:menuitem>
+			    <p:menuitem value="Demos" url="http://localhost:8080/mission-man-web/faces/pages/index.xhtml" icon="ui-icon-search">
+			        <f:param name="i" value="1" />
+			    </p:menuitem>
+			    <p:menuitem value="Documentation" url="http://localhost:8080/mission-man-web/faces/pages/index.xhtml" icon="ui-icon-document">
+			        <f:param name="i" value="2" />
+			    </p:menuitem>
+			    <p:menuitem value="Support" url="http://localhost:8080/mission-man-web/faces/pages/index.xhtml" icon="ui-icon-wrench">
+			        <f:param name="i" value="3" />
+			    </p:menuitem>
+			    <p:menuitem value="Social" url="http://localhost:8080/mission-man-web/faces/pages/index.xhtml" icon="ui-icon-person">
+			        <f:param name="i" value="4" />
+			    </p:menuitem>
+			</p:tabMenu>
+				<h:form id="form">
+					Saria
+				</h:form>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
